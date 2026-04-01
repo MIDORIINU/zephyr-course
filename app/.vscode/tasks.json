@@ -1,0 +1,70 @@
+{
+  "version": "2.0.0",
+  "tasks": [
+    {
+      "label": "Build Zephyr",
+      "type": "shell",
+      "command": "/home/bakaneko/zephyr-course/.venv/bin/west",
+      "args": [
+        "build",
+        "-b",
+        "nucleo_f303re"
+      ],
+      "options": {
+        "cwd": "${workspaceFolder}"
+      },
+      "group": {
+        "kind": "build",
+        "isDefault": true
+      },
+      "problemMatcher": []
+    },
+    {
+      "label": "Rebuild Zephyr (clean)",
+      "type": "shell",
+      "command": "/home/bakaneko/zephyr-course/.venv/bin/west",
+      "args": [
+        "build",
+        "-b",
+        "nucleo_f303re",
+        "-p",
+        "always"
+      ],
+      "options": {
+        "cwd": "${workspaceFolder}"
+      },
+      "problemMatcher": []
+    },
+    {
+      "label": "Compile Zephyr (no reconfigure)",
+      "type": "shell",
+      "command": "/home/bakaneko/zephyr-course/.venv/bin/west",
+      "args": [
+        "build",
+        "-d",
+        "build",
+        "-t",
+        "compile"
+      ],
+      "options": {
+        "cwd": "${workspaceFolder}"
+      },
+      "problemMatcher": []
+    },
+    {
+      "label": "Flash Zephyr",
+      "type": "shell",
+      "command": "/home/bakaneko/zephyr-course/.venv/bin/west",
+      "args": [
+        "flash",
+        "-d",
+        "build"
+      ],
+      "options": {
+        "cwd": "${workspaceFolder}"
+      },
+      "dependsOn": "Build Zephyr",
+      "problemMatcher": []
+    }
+  ]
+}

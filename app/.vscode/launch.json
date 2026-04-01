@@ -1,0 +1,40 @@
+{
+  "version": "0.2.0",
+  "configurations": [
+    {
+      "name": "Zephyr Debug (NUCLEO-F303RE)",
+      "type": "cortex-debug",
+      "request": "launch",
+
+      "cwd": "${workspaceFolder}",
+      "executable": "${workspaceFolder}/build/zephyr/zephyr.elf",
+
+      "servertype": "openocd",
+      "device": "STM32F303RE",
+      "interface": "swd",
+
+      "gdbPath": "/home/bakaneko/zephyr-course/sdk/zephyr-sdk-1.0.1/gnu/arm-zephyr-eabi/bin/arm-zephyr-eabi-gdb",
+      "openOCDPath": "/home/bakaneko/zephyr-course/sdk/zephyr-sdk-1.0.1/hosttools/sysroots/x86_64-pokysdk-linux/usr/bin/openocd",
+
+      "configFiles": [
+        "interface/stlink.cfg",
+        "target/stm32f3x.cfg"
+      ],
+
+      "runToEntryPoint": "main",
+
+      "preLaunchCommands": [
+        "monitor reset halt"
+      ],
+
+      "postLaunchCommands": [
+        "monitor reset halt",
+        "load"
+      ],
+
+      "svdFile": "${workspaceFolder}/build/zephyr/zephyr.svd",
+
+      "showDevDebugOutput": "raw"
+    }
+  ]
+}
