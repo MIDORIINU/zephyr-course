@@ -10,7 +10,7 @@
     "args": "Compile Zephyr (no reconfigure)"
   },
   {
-    "key": "ctrl+alt+z",
+    "key": "ctrl+alt+f",
     "command": "workbench.action.tasks.runTask",
     "args": "Flash Zephyr"
   }

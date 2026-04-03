@@ -4,7 +4,7 @@
     {
       "label": "Build Zephyr",
       "type": "shell",
-      "command": "/home/bakaneko/zephyr-course/.venv/bin/west",
+      "command": "${env:HOME}/zephyr-course/.venv/bin/west",
       "args": [
         "build",
         "-b",
@@ -22,7 +22,7 @@
     {
       "label": "Rebuild Zephyr (clean)",
       "type": "shell",
-      "command": "/home/bakaneko/zephyr-course/.venv/bin/west",
+      "command": "${env:HOME}/zephyr-course/.venv/bin/west",
       "args": [
         "build",
         "-b",
@@ -38,7 +38,7 @@
     {
       "label": "Compile Zephyr (no reconfigure)",
       "type": "shell",
-      "command": "/home/bakaneko/zephyr-course/.venv/bin/west",
+      "command": "${env:HOME}/zephyr-course/.venv/bin/west",
       "args": [
         "build",
         "-d",
@@ -54,7 +54,7 @@
     {
       "label": "Flash Zephyr",
       "type": "shell",
-      "command": "/home/bakaneko/zephyr-course/.venv/bin/west",
+      "command": "${env:HOME}/zephyr-course/.venv/bin/west",
       "args": [
         "flash",
         "-d",
