@@ -44,7 +44,7 @@ case ${MODE} in
   incremental|"")
     ${WEST} build -b "${ZEPHYR_BOARD}" -d "${BUILD_DIR}" -- \
       -DCMAKE_EXPORT_COMPILE_COMMANDS=ON \
-      $OVERLAY_ARG
+      ${OVERLAY_ARG}
     ;;
   rebuild)
     ${WEST} build -b "${ZEPHYR_BOARD}" -d "${BUILD_DIR}" -p always -- \
