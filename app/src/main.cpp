@@ -21,6 +21,7 @@ int main(void)
     if (gpio_pin_configure_dt(&led, GPIO_OUTPUT_ACTIVE) < 0) return 0;
 
     while (1) {
+        // Toggle the LED.
         if (gpio_pin_toggle_dt(&led) < 0) return 0;             
 
         led_state = !led_state;
@@ -28,4 +29,5 @@ int main(void)
         k_msleep(SLEEP_TIME_MS);
     }
     return 0;
+
 }
