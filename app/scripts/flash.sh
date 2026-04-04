@@ -7,23 +7,39 @@ WEST="$HOME/zephyr-course/.venv/bin/west"
 
 BUILD_DIR="$PROJECT_DIR/build-$BOARD"
 
-echo "======================================"
-echo "Flashing board: $BOARD"
-echo "Build dir: $BUILD_DIR"
-echo "======================================"
-
 if [ ! -d "$BUILD_DIR" ]; then
-  echo "Build directory not found, compiling first..."
-
-  "$PROJECT_DIR/scripts/build.sh" "$BOARD" "$PROJECT_DIR" "incremental"
-
-  if [ $? -ne 0 ]; then
-    echo "Build failed, aborting flash."
-    exit 1
-  fi
+  echo "Build directory not found. Running build first..."
+  "$PROJECT_DIR/scripts/build.sh" "$BOARD" "$PROJECT_DIR" incremental
 fi
 
-cd "$PROJECT_DIR"
+detect_port() {
+  for dev in /dev/ttyACM*; do
+    if udevadm info -q property -n "$dev" | grep -q "QinHeng Electronics"; then
+      echo "$dev"
+      return
+    fi
+  done
+}
 
-# 🔥 KEY FIX: prevent west from trying to rebuild again
-$WEST flash -d "$BUILD_DIR" --no-rebuild
+case $BOARD in
+  nucleo_f303re)
+    echo "Flashing STM32..."
+    $WEST flash -d "$BUILD_DIR"
+    ;;
+  esp32)
+    PORT=$(detect_port)
+
+    if [ -z "$PORT" ]; then
+      echo "ESP32 not found!"
+      exit 1
+    fi
+
+    echo "Using ESP32 port: $PORT"
+
+    $WEST flash -d "$BUILD_DIR" --esp-device "$PORT"
+    ;;
+  *)
+    echo "Unknown board: $BOARD"
+    exit 1
+    ;;
+esac

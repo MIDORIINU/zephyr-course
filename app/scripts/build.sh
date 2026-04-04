@@ -57,13 +57,16 @@ case $MODE in
     ;;
 esac
 
-# 🔥 Create/update symlink for IntelliSense
+# Update symlink safely
 echo "Updating build symlink → $BUILD_DIR"
 
-rm -rf "$LINK_DIR"
+if [ -L "$LINK_DIR" ]; then
+  rm "$LINK_DIR"
+fi
+
 ln -s "$BUILD_DIR" "$LINK_DIR"
 
-# Optional: also expose compile_commands.json at root
+# Also expose compile_commands.json at root
 ln -sf "$BUILD_DIR/compile_commands.json" "$PROJECT_DIR/compile_commands.json"
 
 echo "Symlink updated:"

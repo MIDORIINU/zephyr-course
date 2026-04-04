@@ -2,38 +2,54 @@
   "version": "0.2.0",
   "configurations": [
     {
-      "name": "Zephyr Debug (NUCLEO-F303RE)",
+      "name": "Debug STM32 (NUCLEO-F303RE)",
       "type": "cortex-debug",
       "request": "launch",
-
       "cwd": "${workspaceFolder}",
-      "executable": "${workspaceFolder}/build/zephyr/zephyr.elf",
-
+      "executable": "${workspaceFolder}/build-nucleo_f303re/zephyr/zephyr.elf",
       "servertype": "openocd",
       "device": "STM32F303RE",
       "interface": "swd",
-
-      "gdbPath": "/home/bakaneko/zephyr-course/sdk/zephyr-sdk-1.0.1/gnu/arm-zephyr-eabi/bin/arm-zephyr-eabi-gdb",
-      "openOCDPath": "/home/bakaneko/zephyr-course/sdk/zephyr-sdk-1.0.1/hosttools/sysroots/x86_64-pokysdk-linux/usr/bin/openocd",
-
+      "gdbPath": "${env:HOME}/zephyr-course/sdk/zephyr-sdk-1.0.1/gnu/arm-zephyr-eabi/bin/arm-zephyr-eabi-gdb",
+      "toolchainPrefix": "arm-zephyr-eabi",
+      "openOCDPath": "${env:HOME}/zephyr-course/sdk/zephyr-sdk-1.0.1/hosttools/sysroots/x86_64-pokysdk-linux/usr/bin/openocd",
+      "serverpath": "${env:HOME}/zephyr-course/sdk/zephyr-sdk-1.0.1/hosttools/sysroots/x86_64-pokysdk-linux/usr/bin/openocd",
       "configFiles": [
         "interface/stlink.cfg",
         "target/stm32f3x.cfg"
       ],
-
       "runToEntryPoint": "main",
-
+      "preLaunchTask": "Compile STM32",
       "preLaunchCommands": [
         "monitor reset halt"
       ],
-
       "postLaunchCommands": [
         "monitor reset halt",
         "load"
       ],
-
-      "svdFile": "${workspaceFolder}/build/zephyr/zephyr.svd",
-
+      "svdFile": "${workspaceFolder}/build-nucleo_f303re/zephyr/zephyr.svd",
+      "showDevDebugOutput": "raw"
+    },
+    {
+      "name": "Debug ESP32 (ESP32 DEVKIT V1 - JTAG)",
+      "type": "cortex-debug",
+      "request": "launch",
+      "cwd": "${workspaceFolder}",
+      "executable": "${workspaceFolder}/build-esp32/zephyr/zephyr.elf",
+      "servertype": "openocd",
+      "device": "esp32",
+      "interface": "jtag",
+      "gdbPath": "${env:HOME}/zephyr-course/sdk/zephyr-sdk-1.0.1/gnu/arm-zephyr-eabi/bin/arm-zephyr-eabi-gdb",
+      "toolchainPrefix": "arm-zephyr-eabi",
+      "openOCDPath": "${env:HOME}/esp/openocd-esp32/bin/openocd",
+      "serverpath": "${env:HOME}/esp/openocd-esp32/bin/openocd",
+      "configFiles": [
+        "interface/ftdi/esp32_devkitj_v1.cfg",
+        "target/esp32.cfg"
+      ],
+      "runToEntryPoint": "app_main",
+      "preLaunchTask": "Compile ESP32",
+      "svdFile": "${workspaceFolder}/build-esp32/zephyr/zephyr.svd",
       "showDevDebugOutput": "raw"
     }
   ]

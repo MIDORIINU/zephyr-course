@@ -1,17 +1,25 @@
 [
   {
-    "key": "ctrl+alt+b",
-    "command": "workbench.action.tasks.runTask",
-    "args": "Rebuild Zephyr (clean)"
+    "key": "ctrl+shift+b",
+    "command": "workbench.action.tasks.build"
   },
   {
-    "key": "ctrl+alt+c",
+    "key": "ctrl+shift+r",
     "command": "workbench.action.tasks.runTask",
-    "args": "Compile Zephyr (no reconfigure)"
+    "args": "Build"
   },
   {
-    "key": "ctrl+alt+f",
+    "key": "ctrl+shift+k",
     "command": "workbench.action.tasks.runTask",
-    "args": "Flash Zephyr"
+    "args": "Clean"
+  },
+  {
+    "key": "ctrl+shift+f",
+    "command": "workbench.action.tasks.runTask",
+    "args": "Flash"
+  },
+  {
+    "key": "ctrl+shift+i",
+    "command": "C_Cpp.ResetDatabase"
   }
 ]
