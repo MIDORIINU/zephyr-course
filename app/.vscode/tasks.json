@@ -120,7 +120,7 @@
     {
       "label": "Run OpenOCD",
       "type": "shell",
-      "command": "sudo openocd -f interface/jlink.cfg -f target/esp32.cfg -c \"gdb_port 3333\" -c \"adapter speed 25000\"",
+      "command": "sudo openocd -f interface/jlink.cfg -f target/esp32.cfg -c \"gdb_port 3333\" -c \"adapter speed 25000\" -c \"esp32.cpu0 configure -rtos zephyr\"",
       "isBackground": true,
       "problemMatcher": {
         "owner": "custom",
