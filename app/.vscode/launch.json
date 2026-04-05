@@ -5,6 +5,8 @@
       "name": "Debug STM32 (NUCLEO-F303RE)",
       "type": "cortex-debug",
       "request": "launch",
+      "svdFile": "${workspaceFolder}/boards/STM32F303.svd",
+      "preLaunchTask": "Compile STM32",
       "cwd": "${workspaceFolder}",
       "executable": "${workspaceFolder}/build-nucleo_f303re/zephyr/zephyr.elf",
       "servertype": "openocd",
@@ -18,8 +20,7 @@
         "interface/stlink.cfg",
         "target/stm32f3x.cfg"
       ],
-      "runToEntryPoint": "main",
-      "preLaunchTask": "Compile STM32",
+      "runToEntryPoint": "main",      
       "preLaunchCommands": [
         "monitor reset halt"
       ],
@@ -27,30 +28,32 @@
         "monitor reset halt",
         "load"
       ],
-      "svdFile": "${workspaceFolder}/build-nucleo_f303re/zephyr/zephyr.svd",
       "showDevDebugOutput": "raw"
     },
     {
-      "name": "Debug ESP32 (ESP32 DEVKIT V1 - JTAG)",
+      "name": "Debug ESP32 (J-Link)",
       "type": "cortex-debug",
       "request": "launch",
-      "cwd": "${workspaceFolder}",
+      "svdFile": "${workspaceFolder}/boards/esp32.svd",
+      "preLaunchTask": "Compile ESP32 and start openOCD",
       "executable": "${workspaceFolder}/build-esp32/zephyr/zephyr.elf",
-      "servertype": "openocd",
-      "device": "esp32",
-      "interface": "jtag",
-      "gdbPath": "${env:HOME}/zephyr-course/sdk/zephyr-sdk-1.0.1/gnu/arm-zephyr-eabi/bin/arm-zephyr-eabi-gdb",
-      "toolchainPrefix": "arm-zephyr-eabi",
-      "openOCDPath": "${env:HOME}/esp/openocd-esp32/bin/openocd",
-      "serverpath": "${env:HOME}/esp/openocd-esp32/bin/openocd",
-      "configFiles": [
-        "interface/ftdi/esp32_devkitj_v1.cfg",
-        "target/esp32.cfg"
+      "servertype": "external", // Tells Cortex-Debug NOT to start OpenOCD
+      "gdbTarget": "localhost:3333", // The default GDB port for OpenOCD
+      "cwd": "${workspaceFolder}",
+      "device": "ESP32",
+      "gdbPath": "${env:HOME}/zephyr-course/sdk/zephyr-sdk-1.0.1/gnu/xtensa-espressif_esp32_zephyr-elf/bin/xtensa-espressif_esp32_zephyr-elf-gdb",
+      "rtos": "Zephyr",  
+      "overrideLaunchCommands": [
+        "target remote localhost:3333",
+        "monitor reset halt",
+        "monitor [target current] configure -event gdb-detach { shutdown }",
+        "flushregs"
       ],
-      "runToEntryPoint": "app_main",
-      "preLaunchTask": "Compile ESP32",
-      "svdFile": "${workspaceFolder}/build-esp32/zephyr/zephyr.svd",
-      "showDevDebugOutput": "raw"
-    }
+      "postStartSessionCommands": [
+        "monitor reset halt",
+        "thb main",
+        "continue"
+      ]            
+      }    
   ]
 }

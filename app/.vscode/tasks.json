@@ -116,7 +116,37 @@
         "${workspaceFolder}"
       ],
       "problemMatcher": []
-    }
+    },
+    {
+      "label": "Run OpenOCD",
+      "type": "shell",
+      "command": "sudo openocd -f interface/jlink.cfg -f target/esp32.cfg -c \"gdb_port 3333\" -c \"adapter speed 25000\"",
+      "isBackground": true,
+      "problemMatcher": {
+        "owner": "custom",
+        "pattern": {
+          "regexp": "^.*$"
+        },
+        "background": {
+          "activeOnStart": true,
+          "beginsPattern": "Open On-Chip Debugger",
+          "endsPattern": "Listening on port 3333 for gdb connections"
+        }
+      },
+      "presentation": {
+        "reveal": "always",
+        "panel": "dedicated",
+        "clear": true
+      }
+    },
+    {
+      "label": "Compile ESP32 and start openOCD",
+      "dependsOn": [
+        "Compile ESP32",
+        "Run OpenOCD"
+      ],
+      "dependsOrder": "sequence" // Ensures Build finishes before OpenOCD starts
+    }   
   ],
   "inputs": [
     {

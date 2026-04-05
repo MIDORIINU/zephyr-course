@@ -3,13 +3,13 @@
 BOARD=$1
 PROJECT_DIR=$2
 
-WEST="$HOME/zephyr-course/.venv/bin/west"
+WEST="${HOME}/zephyr-course/.venv/bin/west"
 
-BUILD_DIR="$PROJECT_DIR/build-$BOARD"
+BUILD_DIR="${PROJECT_DIR}/build-${BOARD}"
 
-if [ ! -d "$BUILD_DIR" ]; then
+if [ ! -d "${BUILD_DIR}" ]; then
   echo "Build directory not found. Running build first..."
-  "$PROJECT_DIR/scripts/build.sh" "$BOARD" "$PROJECT_DIR" incremental
+  "${PROJECT_DIR}/scripts/build.sh" "${BOARD}" "${PROJECT_DIR}" incremental
 fi
 
 detect_port() {
@@ -21,25 +21,25 @@ detect_port() {
   done
 }
 
-case $BOARD in
-  nucleo_f303re)
+case ${BOARD} in
+  nucleo_*)
     echo "Flashing STM32..."
-    $WEST flash -d "$BUILD_DIR"
+    $WEST flash -d "${BUILD_DIR}"
     ;;
   esp32)
     PORT=$(detect_port)
 
-    if [ -z "$PORT" ]; then
+    if [ -z "${PORT}" ]; then
       echo "ESP32 not found!"
       exit 1
     fi
 
-    echo "Using ESP32 port: $PORT"
+    echo "Using ESP32 port: ${PORT}"
 
-    $WEST flash -d "$BUILD_DIR" --esp-device "$PORT"
+    ${WEST} flash -d "${BUILD_DIR}" --esp-device "${PORT}"
     ;;
   *)
-    echo "Unknown board: $BOARD"
-    exit 1
+    echo "Unknown board: ${BOARD}"
+    exit 2
     ;;
 esac
