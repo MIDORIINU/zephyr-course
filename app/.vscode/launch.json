@@ -14,7 +14,6 @@
       "interface": "swd",
       "gdbPath": "${env:HOME}/zephyr-course/sdk/zephyr-sdk-1.0.1/gnu/arm-zephyr-eabi/bin/arm-zephyr-eabi-gdb",
       "toolchainPrefix": "arm-zephyr-eabi",
-      "openOCDPath": "${env:HOME}/zephyr-course/sdk/zephyr-sdk-1.0.1/hosttools/sysroots/x86_64-pokysdk-linux/usr/bin/openocd",
       "serverpath": "${env:HOME}/zephyr-course/sdk/zephyr-sdk-1.0.1/hosttools/sysroots/x86_64-pokysdk-linux/usr/bin/openocd",
       "configFiles": [
         "interface/stlink.cfg",

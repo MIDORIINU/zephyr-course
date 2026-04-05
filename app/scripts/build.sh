@@ -61,12 +61,13 @@ esac
 echo "Updating build symlink → ${BUILD_DIR}"
 
 if [ -L "${LINK_DIR}" ]; then
-  rm "${LINK_DIR}"
+  rm -f "${LINK_DIR}"
 fi
 
 ln -s "${BUILD_DIR}" "${LINK_DIR}"
 
 # Also expose compile_commands.json at root
+rm -f "${PROJECT_DIR}/compile_commands.json"
 ln -sf "${BUILD_DIR}/compile_commands.json" "${PROJECT_DIR}/compile_commands.json"
 
 echo "Symlink updated:"
