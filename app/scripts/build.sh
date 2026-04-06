@@ -10,6 +10,7 @@ case ${BOARD} in
   nucleo_f303re)
     ZEPHYR_BOARD="nucleo_f303re"
     OVERLAY_ARG=""
+    EXTRA_ARGS=""
     ;;
   esp32)
     ZEPHYR_BOARD="esp32_devkitc/esp32/procpu"
@@ -22,6 +23,8 @@ case ${BOARD} in
     fi
 
     OVERLAY_ARG="-DDTC_OVERLAY_FILE=${OVERLAY_FILE}"
+    
+    EXTRA_ARGS="-DOPENOCD=/usr/local/openocd-esp32/bin/openocd -DOPENOCD_DEFAULT_PATH=/usr/local/openocd-esp32/share/openocd/scripts" 
     ;;
   *)
     echo "Unknown board: ${BOARD}"
@@ -44,12 +47,12 @@ case ${MODE} in
   incremental|"")
     ${WEST} build -b "${ZEPHYR_BOARD}" -d "${BUILD_DIR}" -- \
       -DCMAKE_EXPORT_COMPILE_COMMANDS=ON \
-      ${OVERLAY_ARG}
+      ${OVERLAY_ARG} ${EXTRA_ARGS}
     ;;
   rebuild)
     ${WEST} build -b "${ZEPHYR_BOARD}" -d "${BUILD_DIR}" -p always -- \
       -DCMAKE_EXPORT_COMPILE_COMMANDS=ON \
-      ${OVERLAY_ARG}
+      ${OVERLAY_ARG} ${EXTRA_ARGS}
     ;;
   *)
     echo "Unknown build mode: ${MODE}"

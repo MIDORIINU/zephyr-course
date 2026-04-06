@@ -43,12 +43,15 @@
       "gdbPath": "${env:HOME}/zephyr-course/sdk/zephyr-sdk-1.0.1/gnu/xtensa-espressif_esp32_zephyr-elf/bin/xtensa-espressif_esp32_zephyr-elf-gdb",
       "rtos": "Zephyr",
       "overrideLaunchCommands": [
+        "set remote hardware-watchpoint-limit 2",
+        "set remote hardware-breakpoint-limit 2",
         "target remote localhost:3333",
         "monitor reset halt",
         "monitor [target current] configure -event gdb-detach { shutdown }",
         "maintenance flush register-cache"
       ],
       "postStartSessionCommands": [
+        "set remotetimeout 60",
         "monitor reset halt",
         "thb main",
         "continue"
