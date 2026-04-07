@@ -97,4 +97,6 @@ if (LED_SUBSYSTEM)
 
 endif
 
-source "Kconfig.zephyr"
+menu "Zephyr Kernel and Subsystems"
+    source "${ZEPHYR_BASE}/Kconfig.zephyr"
+endmenu
