@@ -1,7 +1,6 @@
 {
   "version": "2.0.0",
   "tasks": [
-    // ===== INTERACTIVE TASKS (manual use) =====
     {
       "label": "Compile",
       "type": "shell",
@@ -50,7 +49,6 @@
       "dependsOrder": "sequence",
       "problemMatcher": []
     },
-    // ===== NON-INTERACTIVE TASKS (used by debug) =====
     {
       "label": "Compile STM32",
       "type": "shell",
@@ -73,7 +71,6 @@
       ],
       "problemMatcher": []
     },
-    // ===== OPTIONAL: FULL REBUILD PER BOARD =====
     {
       "label": "Build STM32",
       "type": "shell",
@@ -96,7 +93,6 @@
       ],
       "problemMatcher": []
     },
-    // ===== OPTIONAL: CLEAN PER BOARD =====
     {
       "label": "Clean STM32",
       "type": "shell",
@@ -145,7 +141,13 @@
         "Compile ESP32",
         "Run OpenOCD"
       ],
-      "dependsOrder": "sequence" // Ensures Build finishes before OpenOCD starts
+      "dependsOrder": "sequence"
+    },
+    {
+      "label": "menuconfig",
+      "type": "shell",
+      "command": "west build -t menuconfig",
+      "problemMatcher": []
     }
   ],
   "inputs": [
