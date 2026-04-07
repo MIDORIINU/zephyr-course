@@ -1,3 +1,13 @@
 {
-  "C_Cpp.default.compileCommands": "${workspaceFolder}/build/compile_commands.json"
+     "C_Cpp.default.compileCommands": "${workspaceFolder}/compile_commands.json",
+
+
+    "[kconfig]": {
+        "editor.tabSize": 8,
+        "editor.insertSpaces": false,
+        "editor.autoIndent": "full"
+   },
+"editor.autoIndent": "full",
+"editor.autoIndentOnPaste": true
 }
+
