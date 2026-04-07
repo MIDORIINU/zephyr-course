@@ -1,8 +1,4 @@
 / {
-    aliases {
-        pwm-led0 = &pwm_led_pa5;
-    };
-
     pwmleds {
         compatible = "pwm-leds";
         pwm_led_pa5: pwm_led_pa5 {
@@ -10,6 +6,10 @@
             label = "PWM_LED";
         };
     };
+
+    aliases {
+        pwm-led0 = &pwm_led_pa5;
+    };    
 };
 
 &timers2 {
